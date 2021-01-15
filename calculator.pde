@@ -1,10 +1,10 @@
 //background
 var screenX = 500, screenY = 500;
 size(screenX, screenY, 0);
-background(250, 250, 250);
+background(0, 0, 140);
 
 //Buttons' position(4 rows & 5 columns)
-var row1Y = screenY / 3.5, row2Y = screenY / 2.15, row3Y = screenY / 1.55, row4Y = screenY / 1.21;
+var row1Y = screenY / 3.6, row2Y = screenY / 2.25, row3Y = screenY / 1.64, row4Y = screenY / 1.29;
 var col1X = screenX / 16, col2X = screenX / 4.2, col3X = screenX / 2.4, col4X = screenX / 1.6, col5X = screenX / 1.25;
 var btnWidth = screenX / 7, btnHeight = screenY / 7;
 
@@ -54,7 +54,8 @@ Button.prototype.draw = function() {
     rect(this.x, this.y, this.width, this.height, 5);
     fill(255, 255, 255);
     textSize(screenX/12);
-    text(this.label, this.x + screenX/22, this.y + screenY/9);
+    textAlign(CENTER, CENTER);
+    text(this.label, this.x + screenX/14, this.y + screenY/14);
 };
 
 //Check if mouse is inside the Buttons
@@ -63,6 +64,12 @@ Button.prototype.isMouseInside = function () {
          mouseX < this.x + this.width &&
          mouseY > this.y &&
          mouseY < this.y + this.height;
+};
+
+/*Format the result number. If number has decimal round up to 4 digits*/
+var resultFormat = function() {
+if (Number.isInteger(result)) {}
+  else {result = result.toFixed(4);}
 };
 
 /*Button onClick prototype event: main calculation algorithm.
@@ -101,6 +108,7 @@ Button.prototype.onClick = function() {
         if (cal === "()\u00B2") {result = sq(Number(num1));}
         if (cal === "\u221A") {result = sqrt(Number(num1));}
         if (cal === "ln") {result = log(Number(num1)) / 100;}
+        resultFormat();
         inputAccum = "";
         num1 = "";
         cal = "";
@@ -121,12 +129,16 @@ Button.prototype.onClick = function() {
         else if (cal === "x") {result = Number(num1) * Number(num2);}
         else if (cal === "+") {result = Number(num1) + Number(num2);}
         else if (cal === "-") {result = Number(num1) - Number(num2);}
+        resultFormat();
         inputAccum = "";
-
+        num1 = "";
+        num2 = "";
+        cal = "";
     //contants input
     } else {
         input = this.label;
         inputAccum += input;
+        if (inputAccum === "0") {inputAccum = "";}//the 1st integer of the number cannot be 0
         calScreen();
         result = num1 + cal + inputAccum;
       }
@@ -134,7 +146,7 @@ Button.prototype.onClick = function() {
 };
 
 //draw the frame
-strokeWeight(2);
+strokeWeight(5);
 stroke(110, 110, 110);
 fill(200, 200, 200);
 rect(screenX / 40, screenY / 44, screenX * (38/40), screenY * (42/44), 10);
@@ -192,7 +204,6 @@ mouseClicked = function () {
   btnLog.onClick();
   fill(0, 0, 0);
   textSize(50);
-  textAlign(LEFT);
-  if (Number(result) < 0) {result = "0" + result;}
-  text(result, screenX / 10, screenY / 6);
+  textAlign(RIGHT, BOTTOM);
+  text(result, screenX - 40, screenY / 5);
 };
