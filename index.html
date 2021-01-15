@@ -6,8 +6,7 @@
     <script src="processing.js"></script>
     <style media="screen">
       body {background: darkblue; padding: 0px;}
-      h3,p {
-        position: flex;
+      h3 {
         float: left;
         color: white;
       }
@@ -15,9 +14,13 @@
     <title>Calculator</title>
   </head>
   <body>
-    <h3>MÁY TÍNH BẤM TAY</h3>
-    <p>Nhấp chuột vào màn hình hoặc nhập từ bàn phím.<br>
-       Nhấp "=" hoặc gõ Enter để ra kết quả. Nhấp "C" để xóa.</p>
+    <h3>MÁY TÍNH BẤM TAY<br><br>
+        Nhấp chuột vào phím để nhập phép tính.<br>
+        Nhấp "=" để ra kết quả.<br>
+        Nhấp "C" để xóa.<br>
+        Các phép tính %, ()<sup>2</sup>, &#8730;, ln sẽ cho ra kết quả ngay khi bấm phép tính.<br>
+        Nếu kết quả là số thập phân thì sẽ làm tròn đến 4 số thập phân.
+    </h3>
     <canvas id="canvas" width="400" height="400" data-processing-sources="calculator.pde"></canvas>
   </body>
 </html>
